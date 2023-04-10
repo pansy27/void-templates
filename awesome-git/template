@@ -1,0 +1,27 @@
+# Template file for 'awesome-git'
+# using lua51 cause luajit only compatible with lua5.1 syntax
+pkgname=awesome-git
+version=4.3.1588.gb54e50ad
+revision=1
+build_style=cmake
+configure_args="
+    -DSYSCONFDIR=/etc \
+    -DLUA_LIBRARY=$XBPS_CROSS_BASE/usr/lib/libluajit-5.1.so \
+    -DLUA_INCLUDE_DIR=$XBPS_CROSS_BASE/usr/include/luajit-2.1 \
+    -DLUA_EXECUTABLE=/usr/bin/luajit
+"
+conf_files="/etc/xdg/awesome/rc.lua"
+hostmakedepends="ImageMagick ruby-asciidoctor git LuaJIT lua51-lgi pkg-config"
+makedepends="libxcb-devel pango-devel xcb-util-devel xcb-util-image-devel
+ xcb-util-keysyms-devel xcb-util-wm-devel xcb-util-cursor-devel
+ startup-notification-devel libxdg-basedir-devel
+ gdk-pixbuf-devel dbus-devel libxkbcommon-devel xcb-util-xrm-devel LuaJIT-devel lua51-lgi"
+depends="dbus-x11 pango lua51-lgi>=0.8.0"
+short_desc="Highly configurable, next gen framework window manager for X"
+maintainer="Pansy27 <uselessshogun99@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://awesome.org"
+do_fetch() {
+    git clone https://github.com/awesomeWM/awesome.git ${wrksrc} --depth=1
+}
+CFLAGS="-fcommon"
